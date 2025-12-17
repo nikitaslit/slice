@@ -5,6 +5,9 @@ import (
 	"math/rand"
 )
 
+func slice(slice []int) { //копия
+	//fmt.Println(slice)
+}
 func main() {
 
 	var sres1 [4]int = [4]int{5, 1, 2, 5}
@@ -107,4 +110,5 @@ func main() {
 	//Если будем работать с копией исходный слайс этого не затронет
 	//Изначально слайс увеличивает свой Capasity 2x
 	//Если Capasity больше 1024 то только на 25%
+	slice(slice222)
 }
