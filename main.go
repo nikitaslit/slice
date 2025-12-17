@@ -11,9 +11,13 @@ func main() {
 
 	var sres2 [6]int = [6]int{4, 2, 5, 1, 1, 2}
 
-	var sres11 [6]int = [6]int{}
+	var sres11 [6]int = [6]int{5, 1, 2, 5}
 
-	var sres12 [6]int = [6]int{}
+	var sres12 [6]int = [6]int{4, 2, 5, 1, 1, 2}
+
+	var sres13 [4]int = [4]int{5, 1, 2, 5}
+
+	var sres14 [6]int = [6]int{4, 2, 5, 1, 1, 2}
 
 	//рандомно заполнить
 	for i := 0; i < cap(sres1); i++ {
@@ -53,19 +57,39 @@ func main() {
 	}
 	fmt.Println(slice1212, " ", slice2121)
 
-	slice111 := make([]int, cap(sres12), cap(sres12))
 	//Найти пересечения значений в двух слайсах.
-	for i := 0; i < len(sres1); i++ {
-		for i1 := 0; i1 < len(sres2); i1++ {
-			if sres1[i] == sres2[i1] {
-				slice111[i1] = sres1[i]
+	slice111 := make([]int, 0, cap(sres11))
+	//fmt.Println(slice111)
+	//fmt.Println(slice1212, " ", slice2121)
+	for i := 0; i < len(slice1212); i++ {
+		for i1 := 0; i1 < len(slice2121); i1++ {
+			if slice1212[i] == slice2121[i1] {
+				slice111 = append(slice111, slice2121[i1])
+				//fmt.Println(slice2121[i1], "нужен")
+				slice2121 = append(slice2121[:i1], slice2121[i1+1:]...)
+				slice1212 = append(slice1212[:i], slice1212[i+1:]...)
+				fmt.Println(slice1212, " ", slice2121)
+				i-- //если удалили нужно вернутсья
+
+				//if i1 != 0 {
+				//	i1--
+				//}
+				//if i != 0 {
+				//	i--
+				//}
+				//fmt.Println("index", i, " ", i1)
+				fmt.Println(slice111, "новый")
+				break
 			}
+			//fmt.Println("index", i, " ", i1)
+			//fmt.Println(slice1212)
 		}
 	}
-	fmt.Println(slice111)
+	fmt.Println("Пересечение:", slice111)
 
 	//Вернуть слайс с уникальными элементами из слайсов a и b.
-	slice222 := append(sres1[:], sres2[:]...)
+
+	slice222 := append(sres13[:], sres14[:]...)
 	fmt.Println(slice222)
 	for i := 0; i < len(slice222); i++ {
 		for i1 := 0; i1 < len(slice222); i1++ {
@@ -78,4 +102,9 @@ func main() {
 		}
 	}
 	fmt.Println(slice222)
+	//Если функция, то нужно передавать по ссылке
+	//Если передавать по функции то слайс пересоздатся то оригинал тоже будет новый
+	//Если будем работать с копией исходный слайс этого не затронет
+	//Изначально слайс увеличивает свой Capasity 2x
+	//Если Capasity больше 1024 то только на 25%
 }
